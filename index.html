@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Tinhey – Your Everything App</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Main styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <div class="title">
+      <h1>Tinhey – Your Everything App</h1>
+      <p>Login → Verify → Browse → Checkout → Tracking</p>
+    </div>
+
+    <!-- PHONE FRAME -->
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="screen">
+
+        <!-- STEP 1: LOGIN / SIGN UP -->
+        <div class="screen step-1" data-step="1">
+          <div class="logo-wrap">
+            <div class="logo-glow">
+              <!-- your mascot logo -->
+              <img src="assets/photo_2025-12-04_11-24-37.jpg" alt="Tinhey logo">
+            </div>
+          </div>
+
+          <div class="welcome">
+            <h2>Welcome to Tinhey</h2>
+            <p>Sign up or log in to start shopping.</p>
+          </div>
+
+          <div class="auth-form">
+            <input class="input" type="text" placeholder="Email / Phone">
+            <input class="input" type="password" placeholder="Password">
+            <div class="auth-actions">
+              <button class="btn btn-primary" onclick="goToStep(2)">Sign Up</button>
+              <button class="btn btn-ghost">Log In</button>
+            </div>
+            <div class="auth-footer">
+              <span>New here?</span>
+              <button type="button">Forgot password?</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: VERIFICATION -->
+        <div class="screen step-2" data-step="2" style="display:none">
+          <div class="screen-header">
+            <small>Step 2 of 4</small>
+            <h2>Verification Process</h2>
+          </div>
+
+          <div class="verify-list">
+            <div class="verify-item">
+              <span>Full Name</span>
+              <div class="verify-check">✓</div>
+            </div>
+            <div class="verify-item">
+              <span>Date of Birth</span>
+              <div class="verify-check">✓</div>
+            </div>
+            <div class="verify-item">
+              <span>Government ID Upload</span>
+              <div class="verify-check">✓</div>
+            </div>
+            <div class="verify-item">
+              <span>Security PIN</span>
+              <div class="verify-check">✓</div>
+            </div>
+            <div class="verify-item">
+              <span>Profile Picture</span>
+              <div class="verify-check">✓</div>
+            </div>
+          </div>
+
+          <p class="verify-note">
+            Tinhey keeps your identity safe with encrypted verification and secure PIN protection.
+          </p>
+
+          <div class="verify-btn">
+            <button class="btn btn-primary" onclick="goToStep(3)">Continue</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: BROWSE & SEARCH -->
+        <div class="screen step-3" data-step="3" style="display:none">
+          <div class="screen-header">
+            <small>Step 3 of 4</small>
+            <h2>Browse &amp; Search</h2>
+          </div>
+
+          <div class="search-bar">
+            <input id="searchInput" class="input" placeholder="Search KDMV, Ten11, Zando…">
+            <div id="searchButton" class="search-btn">🔍</div>
+          </div>
+
+          <div class="filter-chips">
+            <button class="chip chip-active" data-brand="all">All</button>
+            <button class="chip" data-brand="KDMV">KDMV</button>
+            <button class="chip" data-brand="Ten11">Ten11</button>
+            <button class="chip" data-brand="Zando">Zando</button>
+          </div>
+
+          <div class="market-title">Global Market</div>
+
+          <!-- dynamic product grid -->
+          <div class="product-grid" id="productGrid"></div>
+        </div>
+
+        <!-- STEP 4: PRODUCT DETAIL + CHECKOUT -->
+        <div class="screen step-4" data-step="4" style="display:none">
+          <div class="screen-header screen-header-left">
+            <small>Step 4 of 4</small>
+            <h2>Product Details &amp; Checkout</h2>
+          </div>
+
+          <div class="product-wrap">
+            <div class="product-hero">
+              <div id="productHeroImg" class="product-hero-img"></div>
+
+              <div class="product-hero-info">
+                <h3 id="productTitle">Product name</h3>
+                <div id="productRating" class="rating">⭐ 4.8 (128 reviews)</div>
+                <div id="productPriceMain" class="product-price-main">$0.00</div>
+                <div id="productShipping" class="shipping">Free Shipping</div>
+
+                <div class="product-actions">
+                  <button class="btn btn-ghost" onclick="goToTracking('cart')">Add to Cart</button>
+                  <button class="btn btn-primary" onclick="goToTracking('buy')">Buy Now</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="payment-box">
+              <div class="payment-row">
+                <span>Sold by</span>
+                <span id="productStore">Store</span>
+              </div>
+              <div class="payment-row">
+                <span>Payment Methods</span>
+                <span>Cards • E-Wallet • COD</span>
+              </div>
+              <div class="payment-row">
+                <span>Buyer Protection</span>
+                <span>Full refund if not delivered</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 5: TRACKING -->
+        <div class="screen step-5" data-step="5" style="display:none">
+          <div class="screen-header">
+            <small>Order Tracking</small>
+            <h2>Your Delivery Status</h2>
+          </div>
+
+          <div id="trackingSummary" class="tracking-summary">
+            Your order is on the way.
+          </div>
+
+          <div class="tracking-wrap">
+            <div class="progress-line">
+              <div class="step-dot active">
+                <div class="circle">1</div>
+                <span>Order Placed</span>
+              </div>
+              <div class="step-dot active">
+                <div class="circle">2</div>
+                <span>Out for Delivery</span>
+              </div>
+              <div class="step-dot">
+                <div class="circle">3</div>
+                <span>Delivered</span>
+              </div>
+            </div>
+
+            <div class="timeline">
+              <div class="timeline-fill"></div>
+            </div>
+
+            <div class="map-card">
+              <div class="map-grid"></div>
+              <div class="map-pin">📍</div>
+              <div class="map-footer">
+                <div>
+                  <div>Driver on the way</div>
+                  <div id="trackingProductName">1 item • est. 18 min</div>
+                </div>
+                <div id="trackingPrice">$0.00</div>
+              </div>
+            </div>
+
+            <div class="support-btn">
+              <button class="btn btn-primary" onclick="goToStep(3)">Back to Shop</button>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- /screen -->
+    </div> <!-- /phone-frame -->
+
+    <div class="steps-caption">
+      <span>Step 1: Register Account</span>
+      <span>Step 2: Verification Process</span>
+      <span>Step 3: Browse &amp; Search</span>
+      <span>Step 4: Product Details &amp; Checkout</span>
+      <span>Step 5: Order Tracking</span>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="js/app.js"></script>
+</body>
+</html>
